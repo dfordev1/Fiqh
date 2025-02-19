@@ -35,11 +35,11 @@
       background: conic-gradient(
         from 0deg,
         #0D1B45 0%, /* Deep night (sunset) */
-        #1B2A5E 16.67%, /* Early twilight */
-        #325EA3 33.33%, /* Nautical twilight */
-        #FFB84D 50%, /* Full daylight */
-        #325EA3 66.67%, /* Evening twilight */
-        #1B2A5E 83.33%, /* Nautical twilight */
+        #2C3E50 16.67%, /* Early twilight */
+        #34495E 33.33%, /* Nautical twilight */
+        #F1C40F 50%, /* Full daylight */
+        #34495E 66.67%, /* Evening twilight */
+        #2C3E50 83.33%, /* Nautical twilight */
         #0D1B45 100% /* Returning to night */
       );
       position: relative;
@@ -56,8 +56,8 @@
     }
 
     .division-lines line {
-      stroke: white;
-      stroke-width: 2;
+      stroke: rgba(255, 255, 255, 0.5); /* Semi-transparent lines */
+      stroke-width: 1;
       transform-origin: center;
     }
 
@@ -72,23 +72,24 @@
     }
 
     .salah-markers text {
-      font-size: 12px;
+      font-size: 14px; /* Improved text size */
       fill: white;
       text-anchor: middle;
       dominant-baseline: middle;
       transform-origin: center;
+      font-weight: 500; /* Slightly bold for readability */
     }
 
     /* Interactivity Styles */
     .marker-highlight {
       font-weight: bold;
-      fill: #FFB84D; /* Highlight color */
+      fill: #F1C40F; /* Highlight color matches daylight */
     }
 
     /* Responsive Design */
     @media (max-width: 600px) {
       .salah-markers text {
-        font-size: 10px;
+        font-size: 12px; /* Smaller text for smaller screens */
       }
     }
   </style>
@@ -118,17 +119,17 @@
     <!-- Optional Prayer Markers -->
     <svg class="salah-markers" viewBox="0 0 100 100">
       <!-- Maghrib (0°) -->
-      <text x="50" y="15" data-prayer="Maghrib">Maghrib</text>
+      <text x="50" y="10" data-prayer="Maghrib">Maghrib</text>
       <!-- Isha (30°) -->
-      <text x="65" y="20" transform="rotate(-30 50 50)" data-prayer="Isha">Isha</text>
+      <text x="65" y="15" transform="rotate(-30 50 50)" data-prayer="Isha">Isha</text>
       <!-- Fajr (315°) -->
       <text x="15" y="50" transform="rotate(-150 50 50)" data-prayer="Fajr">Fajr</text>
       <!-- Zuhr (180°) -->
-      <text x="50" y="85" data-prayer="Zuhr">Zuhr</text>
+      <text x="50" y="90" data-prayer="Zuhr">Zuhr</text>
       <!-- Asr (270°) -->
       <text x="85" y="50" transform="rotate(-270 50 50)" data-prayer="Asr">Asr</text>
       <!-- Next Maghrib (360°) -->
-      <text x="50" y="15" data-prayer="Next Maghrib">Next Maghrib</text>
+      <text x="50" y="10" data-prayer="Next Maghrib">Next Maghrib</text>
     </svg>
   </div>
 
