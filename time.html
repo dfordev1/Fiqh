@@ -2,98 +2,152 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Astronomical Day Cycle - Circular Bar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Astronomical Day Cycle Visualization</title>
   <style>
+    /* General Reset */
     body {
-      text-align: center;
-      font-family: Arial, sans-serif;
-      background: #f0f0f0;
       margin: 0;
-      padding: 20px;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #0D1B45;
+      color: white;
     }
-    h2 { margin-bottom: 5px; }
-    p { margin-top: 0; color: #555; }
-    .circle-container {
+
+    /* Container for the visualization */
+    .container {
       position: relative;
-      width: 400px;
-      height: 400px;
-      margin: 50px auto;
+      width: 90vmin;
+      height: 90vmin;
+      max-width: 600px;
+      max-height: 600px;
     }
-    /* Circular bar with a continuous conic-gradient representing an astronomical day.
-       The stops below are set so that:
-         - 0° (and 360°) is deep night (#0D1B45, representing sunset/night),
-         - ~60°: early astronomical twilight (#1B2A5E),
-         - ~120°: transition to civil twilight (#325EA3),
-         - ~180°: peak daylight (#FFB84D),
-         - ~240°: evening twilight (#325EA3),
-         - ~300°: nautical twilight (#243B76),
-         - 360°: back to deep night (#0D1B45). */
+
+    /* Circular Bar with Gradient */
     .circular-bar {
       width: 100%;
       height: 100%;
       border-radius: 50%;
       background: conic-gradient(
         from 0deg,
-        #0D1B45 0deg,
-        #1B2A5E 60deg,
-        #325EA3 120deg,
-        #FFB84D 180deg,
-        #325EA3 240deg,
-        #243B76 300deg,
-        #0D1B45 360deg
+        #0D1B45 0%, /* Deep night (sunset) */
+        #1B2A5E 16.67%, /* Early twilight */
+        #325EA3 33.33%, /* Nautical twilight */
+        #FFB84D 50%, /* Full daylight */
+        #325EA3 66.67%, /* Evening twilight */
+        #1B2A5E 83.33%, /* Nautical twilight */
+        #0D1B45 100% /* Returning to night */
       );
       position: relative;
-      /* Optionally add an inner white circle to make it a ring */
-      box-shadow: inset 0 0 0 50px #fff;
     }
-    /* Create 12 division lines (each 30° apart) over the circle */
-    .division-line {
+
+    /* Division Lines (12 equal parts) */
+    .division-lines {
       position: absolute;
-      width: 2px;
-      height: 50%;  /* Extend from center to the outer edge */
-      background: white;
-      top: 50%;
-      left: 50%;
-      transform-origin: bottom center;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
     }
-    /* Labels for key times can be added with absolute positioning */
-    .marker-label {
+
+    .division-lines line {
+      stroke: white;
+      stroke-width: 2;
+      transform-origin: center;
+    }
+
+    /* Optional Prayer Markers */
+    .salah-markers {
       position: absolute;
-      width: 80px;
-      text-align: center;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+
+    .salah-markers text {
       font-size: 12px;
-      color: black;
+      fill: white;
+      text-anchor: middle;
+      dominant-baseline: middle;
+      transform-origin: center;
+    }
+
+    /* Interactivity Styles */
+    .marker-highlight {
+      font-weight: bold;
+      fill: #FFB84D; /* Highlight color */
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      .salah-markers text {
+        font-size: 10px;
+      }
     }
   </style>
 </head>
 <body>
-  <h2>Astronomical Day Cycle</h2>
-  <p>12 Equal Parts from Sunset (Circular Bar)</p>
-  <div class="circle-container">
+  <div class="container">
+    <!-- Circular Bar -->
     <div class="circular-bar"></div>
-    <!-- Overlay 12 equally spaced division lines using a loop in HTML (manually written here) -->
-    <div class="division-line" style="transform: rotate(0deg) translate(-50%, -100%);"></div>
-    <div class="division-line" style="transform: rotate(30deg) translate(-50%, -100%);"></div>
-    <div class="division-line" style="transform: rotate(60deg) translate(-50%, -100%);"></div>
-    <div class="division-line" style="transform: rotate(90deg) translate(-50%, -100%);"></div>
-    <div class="division-line" style="transform: rotate(120deg) translate(-50%, -100%);"></div>
-    <div class="division-line" style="transform: rotate(150deg) translate(-50%, -100%);"></div>
-    <div class="division-line" style="transform: rotate(180deg) translate(-50%, -100%);"></div>
-    <div class="division-line" style="transform: rotate(210deg) translate(-50%, -100%);"></div>
-    <div class="division-line" style="transform: rotate(240deg) translate(-50%, -100%);"></div>
-    <div class="division-line" style="transform: rotate(270deg) translate(-50%, -100%);"></div>
-    <div class="division-line" style="transform: rotate(300deg) translate(-50%, -100%);"></div>
-    <div class="division-line" style="transform: rotate(330deg) translate(-50%, -100%);"></div>
-    
-    <!-- (Optional) Overlay key time labels around the circle -->
-    <!-- Adjust positions as needed. These are approximate placements for demonstration. -->
-    <div class="marker-label" style="top: 10px; left: 180px;">Sunset</div>
-    <div class="marker-label" style="top: 60px; right: 60px;">Isha</div>
-    <div class="marker-label" style="top: 140px; right: 20px;">Fajr</div>
-    <div class="marker-label" style="bottom: 100px; right: 100px;">Zuhr</div>
-    <div class="marker-label" style="bottom: 60px; left: 60px;">Asr</div>
-    <div class="marker-label" style="bottom: 10px; left: 180px;">Next Maghrib</div>
+
+    <!-- Division Lines -->
+    <svg class="division-lines" viewBox="0 0 100 100">
+      <!-- Draw 12 lines at 30° intervals -->
+      <line x1="50" y1="0" x2="50" y2="10" transform="rotate(0 50 50)" />
+      <line x1="50" y1="0" x2="50" y2="10" transform="rotate(30 50 50)" />
+      <line x1="50" y1="0" x2="50" y2="10" transform="rotate(60 50 50)" />
+      <line x1="50" y1="0" x2="50" y2="10" transform="rotate(90 50 50)" />
+      <line x1="50" y1="0" x2="50" y2="10" transform="rotate(120 50 50)" />
+      <line x1="50" y1="0" x2="50" y2="10" transform="rotate(150 50 50)" />
+      <line x1="50" y1="0" x2="50" y2="10" transform="rotate(180 50 50)" />
+      <line x1="50" y1="0" x2="50" y2="10" transform="rotate(210 50 50)" />
+      <line x1="50" y1="0" x2="50" y2="10" transform="rotate(240 50 50)" />
+      <line x1="50" y1="0" x2="50" y2="10" transform="rotate(270 50 50)" />
+      <line x1="50" y1="0" x2="50" y2="10" transform="rotate(300 50 50)" />
+      <line x1="50" y1="0" x2="50" y2="10" transform="rotate(330 50 50)" />
+    </svg>
+
+    <!-- Optional Prayer Markers -->
+    <svg class="salah-markers" viewBox="0 0 100 100">
+      <!-- Maghrib (0°) -->
+      <text x="50" y="15" data-prayer="Maghrib">Maghrib</text>
+      <!-- Isha (30°) -->
+      <text x="65" y="20" transform="rotate(-30 50 50)" data-prayer="Isha">Isha</text>
+      <!-- Fajr (315°) -->
+      <text x="15" y="50" transform="rotate(-150 50 50)" data-prayer="Fajr">Fajr</text>
+      <!-- Zuhr (180°) -->
+      <text x="50" y="85" data-prayer="Zuhr">Zuhr</text>
+      <!-- Asr (270°) -->
+      <text x="85" y="50" transform="rotate(-270 50 50)" data-prayer="Asr">Asr</text>
+      <!-- Next Maghrib (360°) -->
+      <text x="50" y="15" data-prayer="Next Maghrib">Next Maghrib</text>
+    </svg>
   </div>
+
+  <script>
+    // Add interactivity to prayer markers
+    document.querySelectorAll('.salah-markers text').forEach(marker => {
+      marker.addEventListener('mouseover', () => {
+        marker.classList.add('marker-highlight');
+      });
+
+      marker.addEventListener('mouseout', () => {
+        marker.classList.remove('marker-highlight');
+      });
+
+      marker.addEventListener('click', () => {
+        const prayerName = marker.getAttribute('data-prayer');
+        alert(`You clicked on ${prayerName}`);
+      });
+    });
+  </script>
 </body>
 </html>
